@@ -1,0 +1,33 @@
+#http://localhost:9092/swagger-ui/index.html?configUrl=/v3/api-docs/swagger-config
+
+server:
+  port: 9092
+
+
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/ITGECommerceDb
+    username: postgres
+    password: root
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+      format_sql: true
+    show-sql: true
+
+  mail:
+    username: ihsancb99@gmail.com
+    password: ivbxbkexxbuaxvin
+    host: smtp.gmail.com
+    port: 587
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+
