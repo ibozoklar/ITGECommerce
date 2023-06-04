@@ -16,7 +16,7 @@ import java.util.List;
 @Setter
 @Entity
 @Builder
-@Table(name = "users")
+@Table(name = "baskets")
 public class Basket {
 
     @Id
