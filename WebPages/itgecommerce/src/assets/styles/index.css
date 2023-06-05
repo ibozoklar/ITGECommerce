@@ -1,0 +1,173 @@
+* {
+  box-sizing: border-box;
+  font-family: var(--ff-1);
+}
+
+body {
+  background-color: var(--clr-2);
+  margin: 0;
+  overflow-x: hidden;
+}
+
+* button:hover{
+  cursor: pointer;
+}
+
+:root {
+  --clr-1: #00ffcc;
+  --clr-2:#c3ff63;
+  --clr-3:#002219;
+  --clr-4:#717976;
+  --clr-5:#e2e2e2;
+  --clr-6: rgba(241, 241, 241, 1);
+  --ff-1: "Poppins", sans-serif;
+}
+
+/* ----- HEADER ------*/
+
+header {
+  height: 7.2rem;
+  background-color: var(--clr-4);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid black;  
+  position: sticky;
+  left: 0;
+  right: 0;
+  z-index: 999;
+}
+
+.div-logo {
+  min-width: 260px;
+}
+
+.logo {
+  position: absolute;
+  left: 28px;
+  top: 3px;
+
+ 
+}
+
+.logo i {
+  width: 202px;
+  height: 115px;
+  border: solid red 2px;
+  padding-left: 10px;
+  padding-top: 2rem;
+}
+
+.div-loginicon {
+  float: right;
+  background-color: aqua;
+}
+
+.div-mainheading {
+  color: var(--clr-2);
+  flex-grow: 1;
+  height: 5rem;
+  min-width: 20rem;
+  border-left: 1px solid var(--clr-2);
+  padding-left: 35px;
+  display: flex;
+  align-items: center;
+}
+
+.div-mainheading > h1 {
+  font-family: var(--ff-1);
+  font-size: 50px;
+  text-align: center;
+}
+
+.div-usericon {
+  min-width: 100px;
+  border: 1px solid white;
+}
+
+.userlogin{ 
+  position: relative;
+   height: 100%;
+   
+ }
+ .userlogin img {
+   position: absolute;
+   top: 50%;
+   transform: translateY(-50%);
+   right: 30px;
+   width: 36px;
+   height: 36px;
+ }
+ .usermenu {
+   
+   border: none ;
+   position: absolute;
+   top: 85px;
+   right: 36px;
+   background-color: var(--clr-3);
+   width: 152px;
+   height: 99px;
+   padding: 0 4px;
+  border-radius: 0px 0px 4px 4px;
+ }
+ @media (max-width: 45em) {
+   .header .usermenu {
+     display: none;
+   }
+ }
+ 
+ .menu-btn {
+   
+ 
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
+   height: 33px;
+   width: 140px;
+   background-color: var(--clr-3);
+   font-family: var(--ff-1);
+   font-size: 14px;
+  font-weight: 400;
+   line-height: 21px;
+   border:none;
+   border-bottom: 0.5px solid black;
+   padding-left: 8px;
+ 
+ }
+ .menu-btn:last-child{
+   border: none;
+ }
+ 
+ 
+ .user-icon {
+   height: 15px;
+   width: 15px;
+   margin-right: 16px;
+   
+   
+ }
+ .logout-icon{
+   height: 16px;
+   width: 14px;
+   margin-right: 16px;
+ }
+ .exchange-icon{
+   height: 16px;
+   width: 16px;
+   margin-right: 16px;
+
+ }
+
+ .basket{
+  margin-right: 1rem;
+  
+ }
+
+
+/* ----- MAIN ----- */
+.main {
+  height: 54rem;
+  display: flex;
+  border: solid 2px red;
+}
+
