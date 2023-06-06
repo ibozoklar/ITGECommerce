@@ -1,84 +1,52 @@
-import React, { useState } from "react";
-import LogoMain from "./logoMain";
-import userLogin from "../assets/styles/user.png";
-import userInfo from "../assets/styles/headerIcons/userinfo.png";
-import changeRole from "../assets/styles/headerIcons/changerole.png";
-import logout from "../assets/styles/headerIcons/logout.png";
-import BasketComponent from "./BasketComponent"; // Replace with the actual component you want to render
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
-export default function Header() {
-  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
-  const [isBasketOpen, setIsBasketOpen] = useState(false);
+export default function BasketPage() {
+  const [products, setProducts] = useState([]);
 
-  const [userData, setUserData] = useState({});
+  useEffect(() => {
+    fetchProducts();
+  }, []);
 
-  const handleUserMenuClick = () => {
-    setIsUserMenuOpen(false);
+  const fetchProducts = () => {
+    axios
+      .get("http://localhost:9092/basket/listProducts/9")
+      .then((response) => {
+        setProducts(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
-  const handleUserInfoClick = () => {
-    // Update userData with the desired data
-    setUserData({});
-  };
-
-  const handleRoleChangeClick = () => {
-    // Add role change functionality
-  };
-
-  const handleLogoutClick = () => {
-    // Perform logout operations
-  };
-
-  const handleBasketClick = () => {
-    setIsBasketOpen(true);
+  const removeFromBasket = (productId) => {
+    const userid = 3; // Set the user ID as per your requirements
+    axios
+      .put(`http://localhost:9092/basket/removeItemFromBasket/${userid}/${productId}`)
+      .then(() => {
+        fetchProducts(); // Refetch the products after successful removal
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   return (
-    <div className="header">
-      <header>
-        <div>
-          {isUserMenuOpen && (
-            <div className="usermenu">
-              <button className="menu-btn" onClick={handleUserInfoClick}>
-                <img src={userInfo} alt="User Icon" className="user-icon" />
-                Profil Bilgileri
-              </button>
-              <button className="menu-btn" onClick={handleRoleChangeClick}>
-                <img
-                  src={changeRole}
-                  alt="change Role"
-                  className="exchange-icon"
-                />
-                Rol Değiştir
-              </button>
-              <button className="menu-btn" onClick={handleLogoutClick}>
-                <img src={logout} alt="logout Icon" className="logout-icon" />
-                Çıkış
-              </button>
-            </div>
-          )}
-        </div>
+    <div className="basketContent">
+      <div className="top">
+        {products.map((product) => (
+          <div className="card" key={product.id}>
+            {product.title} <br /> {product.brand} <br /> {product.price} TL
+            <button onClick={() => removeFromBasket(product.id)}>
+              Remove from Basket
+            </button>
+          </div>
+        ))}
+      </div>
 
-        <div className="div-logo">
-          <LogoMain />
-        </div>
-        <div className="div-mainheading">
-          <h1>Otomotiv Parça E-Ticaret</h1>
-        </div>
-
-        <div className="userlogin">
-          <img
-            src={userLogin}
-            alt="iconlogin"
-            onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-          />
-        </div>
-        <div className="basket" onClick={handleBasketClick}>
-          <i className="fa-solid fa-cart-shopping fa-2xl"></i>
-        </div>
-      </header>
-
-      {isBasketOpen && <BasketComponent />}
+      <div className="bottom">
+        <button>PURCHASE</button>
+      </div>
     </div>
   );
 }
