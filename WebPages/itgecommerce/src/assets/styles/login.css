@@ -9,7 +9,7 @@ main{
 
 main > .content{
   height: 65vh;
-  width: 45%;
+  width: 70%;
   background-color: rgba(229, 224, 224, 0.4);
   display: flex;
   align-items: center;

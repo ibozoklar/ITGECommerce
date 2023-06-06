@@ -3,6 +3,7 @@ package com.ihsan.itgecommerce.service;
 import com.ihsan.itgecommerce.entity.Basket;
 import com.ihsan.itgecommerce.entity.Product;
 import com.ihsan.itgecommerce.entity.User;
+import com.ihsan.itgecommerce.entity.enums.ProductState;
 import com.ihsan.itgecommerce.repository.IBasketRepository;
 import com.ihsan.itgecommerce.repository.IProductRepository;
 import com.ihsan.itgecommerce.repository.IUserRepository;
@@ -55,5 +56,35 @@ public class BasketService {
         }
 
         return basket.get().getProducts();
+    }
+
+    public Boolean removeProductFromBasket(Long userid, Long productid) {
+        Optional<User> user = userRepository.findById(userid);
+        if (user.isEmpty()){
+            throw new RuntimeException("User not found exception");
+        }
+
+        Optional<Product> product = productRepository.findById(productid);
+        if (product.isEmpty()){
+            throw new RuntimeException("Product not found exception");
+        }
+        user.get().getBasket().getProducts().remove(product.get());
+        userRepository.save(user.get());
+        return true;
+    }
+
+    public Boolean purchaseProducts(Long basketid) {
+
+        Optional<Basket> basket = basketRepository.findById(basketid);
+
+        for (int i=0; i<basket.get().getProducts().size(); i++){
+            basket.get().getProducts().get(i).setUser(basket.get().getUser());
+            basket.get().getProducts().get(i).setProductState(ProductState.SOLD);
+            basket.get().getUser().getProducts().add(basket.get().getProducts().get(i));
+            basketRepository.save(basket.get());
+        }
+
+        return true;
+
     }
 }

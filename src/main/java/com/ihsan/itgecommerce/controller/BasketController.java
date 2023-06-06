@@ -21,9 +21,21 @@ public class BasketController {
         return ResponseEntity.ok(basketService.addProductToBasket(userid, productid));
     }
 
+    @PutMapping("/removeItemFromBasket/{userid}/{productid}")
+    public ResponseEntity<Boolean> removeItemFromBasket(@PathVariable Long userid, @PathVariable Long productid){
+        return ResponseEntity.ok(basketService.removeProductFromBasket(userid, productid));
+
+    }
+
     @GetMapping("/listProducts/{basketid}")
     public ResponseEntity<List<Product>> listProducts(@PathVariable Long basketid){
         return ResponseEntity.ok(basketService.listProducts(basketid));
     }
+
+    @PutMapping("/purchaseProducts/{basketid}")
+    public ResponseEntity<Boolean> purchaseProducts(@PathVariable Long basketid){
+        return ResponseEntity.ok(basketService.purchaseProducts(basketid));
+    }
+
 
 }

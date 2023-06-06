@@ -1,6 +1,7 @@
 package com.ihsan.itgecommerce.service;
 
 import com.ihsan.itgecommerce.entity.Product;
+import com.ihsan.itgecommerce.entity.enums.ProductState;
 import com.ihsan.itgecommerce.repository.IProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,6 @@ public class ProductService {
     }
 
     public List<Product> findAllProducts() {
-        return productRepository.findAll();
+        return productRepository.findAllByProductState(ProductState.AVAILABLE);
     }
 }

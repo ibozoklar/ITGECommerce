@@ -4,18 +4,13 @@ import userLogin from "../assets/styles/user.png";
 import userInfo from "../assets/styles/headerIcons/userinfo.png";
 import changeRole from "../assets/styles/headerIcons/changerole.png";
 import logout from "../assets/styles/headerIcons/logout.png";
-import BasketPage from "./pages/BasketPage"; // Replace with the actual component you want to render
+import BasketComponent from "./BasketComponent"; // Replace with the actual component you want to render
 
 export default function Header() {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [isBasketOpen, setIsBasketOpen] = useState(false);
 
   const [userData, setUserData] = useState({});
-
-
-  const toggleBasket = () => {
-    setIsBasketOpen(!isBasketOpen);
-  }
 
   const handleUserMenuClick = () => {
     setIsUserMenuOpen(false);
@@ -34,7 +29,9 @@ export default function Header() {
     // Perform logout operations
   };
 
-
+  const handleBasketClick = () => {
+    setIsBasketOpen(true);
+  };
 
   return (
     <div className="header">
@@ -76,12 +73,12 @@ export default function Header() {
             onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
           />
         </div>
-        <div className="basket" onClick={toggleBasket}>
+        <div className="basket" onClick={handleBasketClick}>
           <i className="fa-solid fa-cart-shopping fa-2xl"></i>
         </div>
       </header>
 
-      {isBasketOpen && <BasketPage />}
+      {isBasketOpen && <BasketComponent />}
     </div>
   );
 }
