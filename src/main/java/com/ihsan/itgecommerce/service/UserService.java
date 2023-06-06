@@ -5,6 +5,7 @@ import com.ihsan.itgecommerce.dto.request.LoginRequestDto;
 import com.ihsan.itgecommerce.dto.request.RegisterRequestDto;
 import com.ihsan.itgecommerce.dto.request.VerifyEmailRequestDto;
 import com.ihsan.itgecommerce.entity.Basket;
+import com.ihsan.itgecommerce.entity.Product;
 import com.ihsan.itgecommerce.entity.Role;
 import com.ihsan.itgecommerce.entity.User;
 import com.ihsan.itgecommerce.entity.enums.State;
@@ -19,6 +20,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -119,5 +121,16 @@ public class UserService {
         }else {
             throw new RuntimeException("Invalid credentials exception");
         }
+    }
+
+    public List<Product> findAllPurchasedProducts(Long userid) {
+
+        Optional<User> user = userRepository.findById(userid);
+
+        if (user.isEmpty()){
+            throw new RuntimeException("User not found exception");
+        }
+
+        return user.get().getProducts();
     }
 }
