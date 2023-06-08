@@ -10,6 +10,7 @@ import com.ihsan.itgecommerce.repository.IUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -78,11 +79,15 @@ public class BasketService {
         Optional<Basket> basket = basketRepository.findById(basketid);
 
         for (int i=0; i<basket.get().getProducts().size(); i++){
+
             basket.get().getProducts().get(i).setUser(basket.get().getUser());
             basket.get().getProducts().get(i).setProductState(ProductState.SOLD);
             basket.get().getUser().getProducts().add(basket.get().getProducts().get(i));
-            basketRepository.save(basket.get());
+
         }
+
+        basket.get().setProducts(new ArrayList<>());
+        basketRepository.save(basket.get());
 
         return true;
 

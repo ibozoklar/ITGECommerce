@@ -18,7 +18,6 @@ public class ProductService {
     public boolean saveProduct(Product product){
         productRepository.save(product);
         return true;
-
     }
 
     public List<Product> findAllProducts() {

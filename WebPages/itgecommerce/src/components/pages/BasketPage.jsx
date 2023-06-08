@@ -3,6 +3,7 @@ import axios from "axios";
 
 export default function BasketPage() {
   const [products, setProducts] = useState([]);
+  const [basketId, setBasketId] = useState(null);
 
   useEffect(() => {
     fetchProducts();
@@ -13,6 +14,7 @@ export default function BasketPage() {
       .get("http://localhost:9092/basket/listProducts/9")
       .then((response) => {
         setProducts(response.data);
+        setBasketId(response.data[0].basketId); // Assuming basketId is available in the response
       })
       .catch((error) => {
         console.error(error);
@@ -25,6 +27,19 @@ export default function BasketPage() {
       .put(`http://localhost:9092/basket/removeItemFromBasket/${userid}/${productId}`)
       .then(() => {
         fetchProducts(); // Refetch the products after successful removal
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+  const purchaseProducts = () => {
+    axios
+      .put(`http://localhost:9092/basket/purchaseProducts/9`)
+      .then(() => {
+        console.log("Purchase successful!");
+        fetchProducts();
+        
       })
       .catch((error) => {
         console.error(error);
@@ -45,7 +60,7 @@ export default function BasketPage() {
       </div>
 
       <div className="bottom">
-        <button>PURCHASE</button>
+        <button onClick={purchaseProducts}>PURCHASE</button>
       </div>
     </div>
   );
