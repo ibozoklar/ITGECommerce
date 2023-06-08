@@ -231,3 +231,12 @@ div button {
   background-color: red;
   align-self: center;
 }
+
+/* ----- My Products ----- */
+.myProductsContent{
+  height: 20rem;
+  margin: 1rem;
+  height: 75%;
+  border: solid red 2px;
+  display: flex;
+}

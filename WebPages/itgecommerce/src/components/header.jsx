@@ -5,16 +5,24 @@ import userInfo from "../assets/styles/headerIcons/userinfo.png";
 import changeRole from "../assets/styles/headerIcons/changerole.png";
 import logout from "../assets/styles/headerIcons/logout.png";
 import BasketPage from "./pages/BasketPage"; // Replace with the actual component you want to render
+import MyProducts from "./myProducts";
+
 
 export default function Header() {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [isBasketOpen, setIsBasketOpen] = useState(false);
+  const [isMyProductsOpen, setIsMyProductsOpen] = useState(false);
 
   const [userData, setUserData] = useState({});
 
   const toggleBasket = () => {
     setIsBasketOpen(!isBasketOpen);
   };
+
+  const toggleMyProducts = () => {
+    setIsMyProductsOpen(!isMyProductsOpen);
+  };
+
 
   const handleUserMenuClick = () => {
     setIsUserMenuOpen(false);
@@ -34,6 +42,10 @@ export default function Header() {
     window.location.reload(); // Refresh the page
   };
 
+  const handleMyProductsClick = () => {
+
+  }
+
   return (
     <div className="header">
       <header>
@@ -42,19 +54,19 @@ export default function Header() {
             <div className="usermenu">
               <button className="menu-btn" onClick={handleUserInfoClick}>
                 <img src={userInfo} alt="User Icon" className="user-icon" />
-                Profil Bilgileri
+                Profile
               </button>
-              <button className="menu-btn" onClick={handleRoleChangeClick}>
+              <button className="menu-btn" onClick={toggleMyProducts}>
                 <img
                   src={changeRole}
                   alt="change Role"
                   className="exchange-icon"
                 />
-                Rol Değiştir
+                My Products
               </button>
               <button className="menu-btn" onClick={handleLogoutClick}>
                 <img src={logout} alt="logout Icon" className="logout-icon" />
-                Çıkış
+                Logout
               </button>
             </div>
           )}
@@ -78,8 +90,10 @@ export default function Header() {
           <i className="fa-solid fa-cart-shopping fa-2xl"></i>
         </div>
       </header>
-
+      
+      
       {isBasketOpen && <BasketPage />}
+      {isMyProductsOpen && <MyProducts />}
     </div>
   );
 }
