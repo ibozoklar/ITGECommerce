@@ -12,10 +12,9 @@ export default function Header() {
 
   const [userData, setUserData] = useState({});
 
-
   const toggleBasket = () => {
     setIsBasketOpen(!isBasketOpen);
-  }
+  };
 
   const handleUserMenuClick = () => {
     setIsUserMenuOpen(false);
@@ -32,9 +31,8 @@ export default function Header() {
 
   const handleLogoutClick = () => {
     // Perform logout operations
+    window.location.reload(); // Refresh the page
   };
-
-
 
   return (
     <div className="header">
