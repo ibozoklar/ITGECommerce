@@ -1,0 +1,396 @@
+* {
+  box-sizing: border-box;
+  font-family: var(--ff-1);
+}
+
+body {
+  background-color: var(--clr-2);
+  margin: 0;
+  overflow-x: hidden;
+}
+
+* button:hover{
+  cursor: pointer;
+}
+
+:root {
+  --clr-1: #00ffcc;
+  --clr-2:#c3ff63;
+  --clr-3:#002219;
+  --clr-4:#717976;
+  --clr-5:#e2e2e2;
+  --clr-6: rgba(241, 241, 241, 1);
+  --ff-1: "Poppins", sans-serif;
+}
+
+
+main{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 86vh;
+  background-color:  var(--clr-1);
+}
+
+main > .content{
+  height: 65vh;
+  width: 70%;
+  background-color: rgba(229, 224, 224, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+}
+
+.loginContent{
+  width: 55%;
+  height: 55%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+input{
+  width: 100%;
+  height: 2rem;
+  background-color: inherit
+}
+
+input {
+  outline: 0;
+  border-width: 0 0 2px;
+  border-color: var(--clr-1);
+  margin-top: 1rem;
+  
+}
+input:focus {
+  border-color: var(--clr-3);
+  outline: 1px dotted #000
+}
+
+::placeholder { 
+  color: var(--clr-2);
+  opacity: 1; 
+}
+span{
+  color: var(--clr-2);
+}
+button{
+  margin: auto; /* Centers horizontally */
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 5rem;
+  padding-right: 5rem;
+  margin-top: 2rem;
+  background-color: var(--clr-2);;
+}
+
+.ctop{
+
+  width: 100%;
+  margin: 2rem;
+}
+
+/* ----- HEADER ------*/
+
+header {
+  height: 7.2rem;
+  background-color: var(--clr-4);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid black;  
+  position: sticky;
+  left: 0;
+  right: 0;
+  z-index: 999;
+}
+
+.div-logo {
+  min-width: 260px;
+}
+
+.logo {
+  position: absolute;
+  left: 28px;
+  top: 3px;
+
+ 
+}
+
+.logo i {
+  width: 202px;
+  height: 115px;
+  border: solid red 2px;
+  padding-left: 10px;
+  padding-top: 2rem;
+}
+
+.div-loginicon {
+  float: right;
+  background-color: aqua;
+}
+
+.div-mainheading {
+  color: var(--clr-2);
+  flex-grow: 1;
+  height: 5rem;
+  min-width: 20rem;
+  border-left: 1px solid var(--clr-2);
+  padding-left: 35px;
+  display: flex;
+  align-items: center;
+}
+
+.div-mainheading > h1 {
+  font-family: var(--ff-1);
+  font-size: 50px;
+  text-align: center;
+}
+
+.div-usericon {
+  min-width: 100px;
+  border: 1px solid white;
+}
+
+.userlogin{ 
+  position: relative;
+   height: 100%;
+   
+ }
+ .userlogin img {
+   position: absolute;
+   top: 50%;
+   transform: translateY(-50%);
+   right: 30px;
+   width: 36px;
+   height: 36px;
+ }
+ .usermenu {
+   
+  position: absolute;
+  top: 85px;
+  right: 36px;
+  background-color: rgb(131, 221, 101);
+  width: 150px;
+  padding: 1px;
+  border-radius: 0 0 4px 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+ }
+ @media (max-width: 45em) {
+   .header .usermenu {
+     display: none;
+   }
+ }
+ 
+ .menu-btn {
+  display: flex;
+  align-items: center;
+  height: 33px;
+  width: 100%;
+  padding-left: 8px;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  color: black;
+  border-left: salmon 2px;
+  border-right: salmon 2px;
+  border-top: salmon 2px;
+  padding-top: 5px;
+
+  background-color: transparent;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+
+.menu-btn:hover {
+  background-color: #f0f0f0;
+}
+
+.user-icon,
+.logout-icon,
+.exchange-icon {
+  height: 16px;
+  width: 16px;
+  margin-right: 8px;
+}
+
+.logout-icon {
+  height: 14px;
+}
+
+.exchange-icon {
+  height: 14px;
+}
+
+
+ .basket{
+  margin-right: 1rem;
+  border: salmon solid 2px;
+ }
+/*----- Home ----*/
+
+.home {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  width: 20rem;
+  height: 15rem;
+  background-color: #f5f5f5;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 1rem;
+  overflow: hidden;
+}
+
+.card-content {
+  padding: 1rem;
+}
+
+.card-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.card-brand {
+  font-size: 1rem;
+  color: #555;
+}
+
+.card-price {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+.add-to-basket-btn {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.add-to-basket-btn:hover {
+  background-color: #0056b3;
+}
+ 
+/* ----- Basket ----- */
+
+.basketContent {
+  height: 20rem;
+  margin: 1rem;
+}
+
+.basketContent > .top {
+  height: 75%;
+  
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1rem;
+  overflow-y: auto;
+}
+
+.basketContent > .bottom {
+  height: 20%;
+ 
+  margin: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.basketContent > .bottom > button {
+  background-color: #36cca4;
+  color: #e2e2e2;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.basketContent > .bottom > button:hover {
+  background-color: #269d7c;
+}
+
+.top > .card {
+  width: 15rem;
+  height: 8rem;
+  background-color: #f5f5f5;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+.top > .card > button {
+  background-color: red;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 1rem;
+}
+
+.top > .card > button:hover {
+  background-color: darkred;
+}
+
+
+/* ----- My Products ----- */
+.myProductsContent {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.myProductsContent > .card {
+  width: 20rem;
+  height: 15rem;
+  background-color: #f5f5f5;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 1rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.myProductsContent > .card-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.myProductsContent > .card-brand {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 0.5rem;
+}
+
+.myProductsContent > .card-price {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+

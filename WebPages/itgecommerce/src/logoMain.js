@@ -1,4 +1,4 @@
-import logo from "../assets/styles/logo.jpg";
+//import logo from "../assets/styles/logo.jpg";
 export default function LogoMain(){
     return <div className="logo">
      

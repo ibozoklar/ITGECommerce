@@ -36,7 +36,7 @@ public class HelloController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Boolean> login(@RequestBody LoginRequestDto dto){
+    public ResponseEntity<Long> login(@RequestBody LoginRequestDto dto){
 
         return ResponseEntity.ok(userService.login(dto));
 

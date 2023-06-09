@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
-
+import { AuthContext } from "./AuthContext";
 
 export default function MyProducts(){
 
     const [products, setProducts] = useState([]);
+    const { userid } = useContext(AuthContext);
 
     useEffect(() => {
         fetchProducts();
@@ -12,7 +13,7 @@ export default function MyProducts(){
     
       const fetchProducts = () => {
         axios
-          .get("http://localhost:9092/user/findAllPurchasedProducts/3")
+          .get(`http://localhost:9092/user/findAllPurchasedProducts/${userid}`)
           .then((response) => {
             setProducts(response.data);
           })
