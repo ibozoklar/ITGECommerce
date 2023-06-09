@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
+import { AuthContext } from './AuthContext';
 
-export default function BasketPage({ onPurchase }) {
+
+export default function BasketPage() {
   const [products, setProducts] = useState([]);
   const [basketId, setBasketId] = useState(null);
+  const { userid } = useContext(AuthContext);
 
   useEffect(() => {
     fetchProducts();
@@ -11,7 +14,7 @@ export default function BasketPage({ onPurchase }) {
 
   const fetchProducts = () => {
     axios
-      .get("http://localhost:9092/basket/listProducts/9")
+      .get(`http://localhost:9092/basket/listProductsFromUserBasket/${userid}`)
       .then((response) => {
         setProducts(response.data);
         setBasketId(response.data[0].basketId); // Assuming basketId is available in the response
@@ -22,7 +25,7 @@ export default function BasketPage({ onPurchase }) {
   };
 
   const removeFromBasket = (productId) => {
-    const userid = 3; // Set the user ID as per your requirements
+    
     axios
       .put(`http://localhost:9092/basket/removeItemFromBasket/${userid}/${productId}`)
       .then(() => {
@@ -35,10 +38,11 @@ export default function BasketPage({ onPurchase }) {
 
   const purchaseProducts = () => {
     axios
-      .put(`http://localhost:9092/basket/purchaseProducts/9`)
+      .put(`http://localhost:9092/basket/purchaseProductsInUserBasket/${userid}`)
       .then(() => {
         console.log("Purchase successful!");
-        onPurchase();
+        fetchProducts();
+        
       })
       .catch((error) => {
         console.error(error);

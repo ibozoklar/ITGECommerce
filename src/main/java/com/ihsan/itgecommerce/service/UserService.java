@@ -100,7 +100,7 @@ public class UserService {
 
     }
 
-    public Boolean login(LoginRequestDto dto) {
+    public Long login(LoginRequestDto dto) {
 
         Optional<User> user = userRepository.findByEmail(dto.getEmail());
 
@@ -117,7 +117,7 @@ public class UserService {
             basketRepository.save(basket);
             user.get().setBasket(basket);
             userRepository.save(user.get());
-            return true;
+            return user.get().getId();
         }else {
             throw new RuntimeException("Invalid credentials exception");
         }

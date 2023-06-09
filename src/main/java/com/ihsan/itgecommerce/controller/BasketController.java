@@ -32,6 +32,16 @@ public class BasketController {
         return ResponseEntity.ok(basketService.listProducts(basketid));
     }
 
+    @GetMapping("/listProductsFromUserBasket/{userid}")
+    public ResponseEntity<List<Product>> listProductsFromUser(@PathVariable Long userid){
+        return ResponseEntity.ok(basketService.listProductsFromUserBasket(userid));
+    }
+
+    @PutMapping("/purchaseProductsInUserBasket/{userid}")
+    public ResponseEntity<Boolean> purchaseProductsInUserBasket(@PathVariable Long userid){
+        return ResponseEntity.ok(basketService.purchaseProductsInUserBasket(userid));
+    }
+
     @PutMapping("/purchaseProducts/{basketid}")
     public ResponseEntity<Boolean> purchaseProducts(@PathVariable Long basketid){
         return ResponseEntity.ok(basketService.purchaseProducts(basketid));

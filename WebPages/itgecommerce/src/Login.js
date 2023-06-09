@@ -1,39 +1,26 @@
-import React, { useState } from "react";
-import ReactDOM from "react-dom";
-import App from "../app";
+import React, { useContext, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { AuthContext } from './AuthContext';
+import axios from 'axios';
 
-export default function LoginContent() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+const Login = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const history = useHistory();
+  const { handleLogin } = useContext(AuthContext);
 
-  const handleLogin = async () => {
+  const handleLoginFormSubmit = async (e) => {
+    e.preventDefault();
     try {
-      const requestData = {
-        email: email,
-        password: password
-      };
-
-      const response = await fetch(
-        "http://localhost:9092/auth/login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(requestData)
-        }
-      );
-
-      if (response.ok) {
-        const data = await response.json();
-        // İstek başarılıysa yanıtı işleyebilirsiniz
-        console.log(data);
-
-        // Başarılı giriş durumunda App bileşenini render et
-        ReactDOM.render(<App />, document.getElementById("root"));
-      } else {
-        // İstek başarısız olduğunda hata durumuyla ilgili işlemleri yapabilirsiniz
-        throw new Error("Login request failed");
+      const response = await axios.post('http://localhost:9092/auth/login', {
+        email,
+        password,
+      });
+      console.log(response.data); // Assuming the server returns a success message with user data
+      // Perform any other actions upon successful login
+      if (response.data) {
+        handleLogin(response.data); // Invoke handleLogin with the firstName
+        history.push('/home'); // Redirect to the homepage
       }
     } catch (error) {
       console.error(error);
@@ -69,7 +56,7 @@ export default function LoginContent() {
               <br />
               <br />
               <div className="cbottom">
-                <button onClick={handleLogin}>GİRİŞ</button>
+                <button onClick={handleLoginFormSubmit}>GİRİŞ</button> {/* Updated onClick to handleLoginFormSubmit */}
               </div>
             </div>
           </div>
@@ -77,4 +64,6 @@ export default function LoginContent() {
       </div>
     </main>
   );
-}
+};
+
+export default Login;

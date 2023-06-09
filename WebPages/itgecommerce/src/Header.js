@@ -1,11 +1,13 @@
-import React, { useState } from "react";
-import LogoMain from "./logoMain";
-import userLogin from "../assets/styles/user.png";
-import userInfo from "../assets/styles/headerIcons/userinfo.png";
-import changeRole from "../assets/styles/headerIcons/changerole.png";
-import logout from "../assets/styles/headerIcons/logout.png";
-import BasketPage from "./pages/BasketPage"; // Replace with the actual component you want to render
-import MyProducts from "./myProducts";
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import LogoMain from './logoMain';
+import userLogin from './assets/styles/user.png';
+import userInfo from './assets/styles/headerIcons/userinfo.png';
+import changeRole from './assets/styles/headerIcons/changerole.png';
+import logout from './assets/styles/headerIcons/logout.png';
+import BasketPage from './BasketPage';
+import MyProducts from './myProducts';
+
 
 
 export default function Header() {
@@ -15,6 +17,8 @@ export default function Header() {
 
   const [userData, setUserData] = useState({});
 
+  const history = useHistory();
+
   const toggleBasket = () => {
     setIsBasketOpen(!isBasketOpen);
   };
@@ -23,28 +27,31 @@ export default function Header() {
     setIsMyProductsOpen(!isMyProductsOpen);
   };
 
-
   const handleUserMenuClick = () => {
     setIsUserMenuOpen(false);
   };
 
   const handleUserInfoClick = () => {
-    // Update userData with the desired data
-    setUserData({});
+    // Perform actions when user info is clicked
+    // You can navigate to the profile page or show a modal, etc.
   };
 
   const handleRoleChangeClick = () => {
-    // Add role change functionality
+    // Perform actions when role change is clicked
+    // You can show a dropdown menu or navigate to a role selection page, etc.
   };
 
   const handleLogoutClick = () => {
     // Perform logout operations
-    window.location.reload(); // Refresh the page
+    // Clear user session, remove tokens, etc.
+    // Then navigate to the login page or any other desired page
+    history.push('/login');
   };
 
   const handleMyProductsClick = () => {
-
-  }
+    // Perform actions when My Products is clicked
+    // You can navigate to the My Products page or show a modal, etc.
+  };
 
   return (
     <div className="header">
@@ -87,13 +94,16 @@ export default function Header() {
           />
         </div>
         <div className="basket" onClick={toggleBasket}>
+          Basket
           <i className="fa-solid fa-cart-shopping fa-2xl"></i>
         </div>
       </header>
-      
-      
+
       {isBasketOpen && <BasketPage />}
       {isMyProductsOpen && <MyProducts />}
+      
+
+
     </div>
   );
 }

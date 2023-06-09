@@ -92,4 +92,24 @@ public class BasketService {
         return true;
 
     }
+
+    public List<Product> listProductsFromUserBasket(Long userid) {
+        Optional<User> user = userRepository.findById(userid);
+        if (user.isEmpty()){
+            throw new RuntimeException("User not found exception");
+        }
+
+        return user.get().getBasket().getProducts();
+
+    }
+
+    public Boolean purchaseProductsInUserBasket(Long userid) {
+        Optional<User> user = userRepository.findById(userid);
+        if (user.isEmpty()){
+            throw new RuntimeException("User not found exception");
+        }
+
+        return purchaseProducts(user.get().getBasket().getId());
+
+    }
 }
