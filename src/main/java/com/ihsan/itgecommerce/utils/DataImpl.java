@@ -2,7 +2,7 @@ package com.ihsan.itgecommerce.utils;
 
 import com.ihsan.itgecommerce.entity.Product;
 import com.ihsan.itgecommerce.entity.Role;
-import com.ihsan.itgecommerce.entity.User;
+import com.ihsan.itgecommerce.entity.UserEntity;
 import com.ihsan.itgecommerce.entity.enums.ProductState;
 import com.ihsan.itgecommerce.entity.enums.State;
 import com.ihsan.itgecommerce.service.ProductService;
@@ -39,19 +39,22 @@ public class DataImpl {
 
         Set<Role> adminlist = new HashSet<>();
         adminlist.add(admin);
-        User admin1 = User.builder().state(State.ACTIVE)
+        UserEntity admin1 = UserEntity.builder()
+                .state(State.ACTIVE)
                 .email("ihsancanbozoklar@hotmail.com")
                 .password("1234")
                 .firstName("Ihsan Can")
                 .lastName("Bozoklar")
                 .build();
+
+        //admin1.getRoles().add(roleService.findByid(1L));
         userService.save(admin1);
 
-        User user1 = User.builder().state(State.ACTIVE)
+        UserEntity user1 = UserEntity.builder().state(State.ACTIVE)
                 .email("user1@hotmail.com")
                 .password("1234")
-                .firstName("User")
-                .lastName("User")
+                .firstName("UserEntity")
+                .lastName("UserEntity")
                 .build();
         userService.save(user1);
     }

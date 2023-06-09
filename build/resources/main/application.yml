@@ -4,6 +4,10 @@ server:
   port: 9092
 
 spring:
+  security:
+    user:
+      name: user
+      password: 1234
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/ITGECommerceDb

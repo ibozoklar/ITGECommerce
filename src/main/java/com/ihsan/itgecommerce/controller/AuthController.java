@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
-public class HelloController {
+public class AuthController {
 
     private final UserService userService;
 
@@ -39,6 +39,13 @@ public class HelloController {
     public ResponseEntity<Long> login(@RequestBody LoginRequestDto dto){
 
         return ResponseEntity.ok(userService.login(dto));
+
+    }
+
+    @PostMapping("/loginWithSecurity")
+    public ResponseEntity<String> loginWithSecurity(@RequestBody LoginRequestDto dto){
+
+        return ResponseEntity.ok(userService.loginWithSecurity(dto));
 
     }
 }
