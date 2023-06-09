@@ -2,7 +2,7 @@ package com.ihsan.itgecommerce.service;
 
 import com.ihsan.itgecommerce.entity.Basket;
 import com.ihsan.itgecommerce.entity.Product;
-import com.ihsan.itgecommerce.entity.User;
+import com.ihsan.itgecommerce.entity.UserEntity;
 import com.ihsan.itgecommerce.entity.enums.ProductState;
 import com.ihsan.itgecommerce.repository.IBasketRepository;
 import com.ihsan.itgecommerce.repository.IProductRepository;
@@ -25,7 +25,7 @@ public class BasketService {
 
     public boolean createBasket(Long userid){
         Basket basket = new Basket();
-        Optional<User> user = userRepository.findById(userid);
+        Optional<UserEntity> user = userRepository.findById(userid);
         basket.setUser(user.get());
 
         basketRepository.save(basket);
@@ -33,9 +33,9 @@ public class BasketService {
     }
 
     public boolean addProductToBasket(Long userid, Long productid){
-        Optional<User> user = userRepository.findById(userid);
+        Optional<UserEntity> user = userRepository.findById(userid);
         if (user.isEmpty()){
-            throw new RuntimeException("User not found exception");
+            throw new RuntimeException("UserEntity not found exception");
         }
 
         Optional<Product> product = productRepository.findById(productid);
@@ -60,9 +60,9 @@ public class BasketService {
     }
 
     public Boolean removeProductFromBasket(Long userid, Long productid) {
-        Optional<User> user = userRepository.findById(userid);
+        Optional<UserEntity> user = userRepository.findById(userid);
         if (user.isEmpty()){
-            throw new RuntimeException("User not found exception");
+            throw new RuntimeException("UserEntity not found exception");
         }
 
         Optional<Product> product = productRepository.findById(productid);
@@ -94,9 +94,9 @@ public class BasketService {
     }
 
     public List<Product> listProductsFromUserBasket(Long userid) {
-        Optional<User> user = userRepository.findById(userid);
+        Optional<UserEntity> user = userRepository.findById(userid);
         if (user.isEmpty()){
-            throw new RuntimeException("User not found exception");
+            throw new RuntimeException("UserEntity not found exception");
         }
 
         return user.get().getBasket().getProducts();
@@ -104,9 +104,9 @@ public class BasketService {
     }
 
     public Boolean purchaseProductsInUserBasket(Long userid) {
-        Optional<User> user = userRepository.findById(userid);
+        Optional<UserEntity> user = userRepository.findById(userid);
         if (user.isEmpty()){
-            throw new RuntimeException("User not found exception");
+            throw new RuntimeException("UserEntity not found exception");
         }
 
         return purchaseProducts(user.get().getBasket().getId());

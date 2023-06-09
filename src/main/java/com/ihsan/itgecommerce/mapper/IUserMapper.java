@@ -1,7 +1,7 @@
 package com.ihsan.itgecommerce.mapper;
 
 import com.ihsan.itgecommerce.dto.request.RegisterRequestDto;
-import com.ihsan.itgecommerce.entity.User;
+import com.ihsan.itgecommerce.entity.UserEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
@@ -11,7 +11,7 @@ public interface IUserMapper {
 
     IUserMapper INSTANCE = Mappers.getMapper(IUserMapper.class);
 
-    User toUser(final RegisterRequestDto dto);
+    UserEntity toUser(final RegisterRequestDto dto);
 
 
 }

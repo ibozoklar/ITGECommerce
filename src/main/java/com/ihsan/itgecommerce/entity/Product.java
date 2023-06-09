@@ -35,7 +35,7 @@ public class Product {
     private String image;
 
     @ManyToOne
-    private User user;
+    private UserEntity user;
 
     @ManyToOne
     private Basket basket;

@@ -2,7 +2,7 @@
 
 import com.ihsan.itgecommerce.entity.Basket;
 import com.ihsan.itgecommerce.entity.Product;
-import com.ihsan.itgecommerce.entity.User;
+import com.ihsan.itgecommerce.entity.UserEntity;
 import com.ihsan.itgecommerce.entity.enums.ProductState;
 import com.ihsan.itgecommerce.repository.IBasketRepository;
 import com.ihsan.itgecommerce.repository.IProductRepository;
@@ -14,7 +14,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,7 +42,7 @@ public class BasketServiceTest {
 
     @Test
     public void testCreateBasket() {
-        User user = new User();
+        UserEntity user = new UserEntity();
         user.setId(1L);
 
         when(userRepository.findById(anyLong())).thenReturn(Optional.of(user));
@@ -56,7 +55,7 @@ public class BasketServiceTest {
 
     @Test
     public void testAddProductToBasket() {
-        User user = new User();
+        UserEntity user = new UserEntity();
         user.setId(1L);
         user.setBasket(new Basket());
 
@@ -65,11 +64,11 @@ public class BasketServiceTest {
 
         when(userRepository.findById(anyLong())).thenReturn(Optional.of(user));
         when(productRepository.findById(anyLong())).thenReturn(Optional.of(product));
-        when(userRepository.save(any(User.class))).thenReturn(null);
+        when(userRepository.save(any(UserEntity.class))).thenReturn(null);
 
         assertTrue(basketService.addProductToBasket(1L, 1L));
 
-        verify(userRepository, times(1)).save(any(User.class));
+        verify(userRepository, times(1)).save(any(UserEntity.class));
     }
 
     @Test
@@ -89,7 +88,7 @@ public class BasketServiceTest {
 
     @Test
     public void testRemoveProductFromBasket() {
-        User user = new User();
+        UserEntity user = new UserEntity();
         user.setId(1L);
         user.setBasket(new Basket());
 
@@ -100,11 +99,11 @@ public class BasketServiceTest {
 
         when(userRepository.findById(anyLong())).thenReturn(Optional.of(user));
         when(productRepository.findById(anyLong())).thenReturn(Optional.of(product));
-        when(userRepository.save(any(User.class))).thenReturn(null);
+        when(userRepository.save(any(UserEntity.class))).thenReturn(null);
 
         assertTrue(basketService.removeProductFromBasket(1L, 1L));
 
-        verify(userRepository, times(1)).save(any(User.class));
+        verify(userRepository, times(1)).save(any(UserEntity.class));
     }
 
     @Test
@@ -135,7 +134,7 @@ public class BasketServiceTest {
 
     @Test
     public void testListProductsFromUserBasket() {
-        User user = new User();
+        UserEntity user = new UserEntity();
         user.setId(1L);
         user.setBasket(new Basket());
 
@@ -160,7 +159,7 @@ public class BasketServiceTest {
 
     @Test
     public void testPurchaseProductsInUserBasket() {
-        User user = new User();
+        UserEntity user = new UserEntity();
         user.setId(1L);
         user.setBasket(new Basket());
         user.getBasket().setId(1L);

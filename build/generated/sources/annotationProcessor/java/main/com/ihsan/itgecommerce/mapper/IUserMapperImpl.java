@@ -1,31 +1,31 @@
 package com.ihsan.itgecommerce.mapper;
 
 import com.ihsan.itgecommerce.dto.request.RegisterRequestDto;
-import com.ihsan.itgecommerce.entity.User;
+import com.ihsan.itgecommerce.entity.UserEntity;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-06-06T11:53:07+0300",
+    date = "2023-06-09T21:29:47+0300",
     comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.4.jar, environment: Java 17.0.5 (Amazon.com Inc.)"
 )
 @Component
 public class IUserMapperImpl implements IUserMapper {
 
     @Override
-    public User toUser(RegisterRequestDto dto) {
+    public UserEntity toUser(RegisterRequestDto dto) {
         if ( dto == null ) {
             return null;
         }
 
-        User.UserBuilder user = User.builder();
+        UserEntity.UserEntityBuilder userEntity = UserEntity.builder();
 
-        user.email( dto.getEmail() );
-        user.password( dto.getPassword() );
-        user.firstName( dto.getFirstName() );
-        user.lastName( dto.getLastName() );
+        userEntity.email( dto.getEmail() );
+        userEntity.password( dto.getPassword() );
+        userEntity.firstName( dto.getFirstName() );
+        userEntity.lastName( dto.getLastName() );
 
-        return user.build();
+        return userEntity.build();
     }
 }

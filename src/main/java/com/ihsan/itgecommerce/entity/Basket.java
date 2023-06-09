@@ -27,7 +27,7 @@ public class Basket {
     private List<Product> products;
 
     @OneToOne
-    private User user;
+    private UserEntity user;
 
 
 }

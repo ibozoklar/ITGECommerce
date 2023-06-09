@@ -20,7 +20,7 @@ import java.util.Set;
 @Entity
 @Builder
 @Table(name = "users")
-public class User {
+public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

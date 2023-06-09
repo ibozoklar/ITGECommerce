@@ -25,5 +25,5 @@ public class Role {
     private String role;
     @JsonBackReference
     @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
-    private List<User> users;
+    private List<UserEntity> users;
 }

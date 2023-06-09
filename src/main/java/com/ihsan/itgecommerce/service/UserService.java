@@ -7,13 +7,14 @@ import com.ihsan.itgecommerce.dto.request.VerifyEmailRequestDto;
 import com.ihsan.itgecommerce.entity.Basket;
 import com.ihsan.itgecommerce.entity.Product;
 import com.ihsan.itgecommerce.entity.Role;
-import com.ihsan.itgecommerce.entity.User;
+import com.ihsan.itgecommerce.entity.UserEntity;
 import com.ihsan.itgecommerce.entity.enums.State;
 import com.ihsan.itgecommerce.mapper.IUserMapper;
 import com.ihsan.itgecommerce.repository.IBasketRepository;
 import com.ihsan.itgecommerce.repository.IRoleRepository;
 import com.ihsan.itgecommerce.repository.IUserRepository;
 import com.ihsan.itgecommerce.utils.CodeGenerator;
+import com.ihsan.itgecommerce.utils.JwtTokenManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -32,18 +33,19 @@ public class UserService {
     private final IRoleRepository roleRepository;
     private final JavaMailSender javaMailSender;
 
+    private final JwtTokenManager jwtTokenManager;
     private final IBasketRepository basketRepository;
 
 
 
-    public boolean save(User user){
+    public boolean save(UserEntity user){
         userRepository.save(user);
         return true;
     }
 
     public Boolean register(RegisterRequestDto dto) {
 
-        User user = IUserMapper.INSTANCE.toUser(dto);
+        UserEntity user = IUserMapper.INSTANCE.toUser(dto);
 
         user.setState(State.PENDING);
 
@@ -80,14 +82,14 @@ public class UserService {
 
     public boolean verifyEmail(VerifyEmailRequestDto dto) {
 
-        Optional<User> user = userRepository.findById(dto.getId());
+        Optional<UserEntity> user = userRepository.findById(dto.getId());
 
         if (user.isEmpty()){
-            throw new RuntimeException("User not found exception");
+            throw new RuntimeException("UserEntity not found exception");
         }
 
         if (user.get().getState().equals(State.ACTIVE)){
-            throw new RuntimeException("User already verified exception");
+            throw new RuntimeException("UserEntity already verified exception");
         }
 
         if (user.get().getActivationCode().equals(dto.getActivationCode())){
@@ -102,10 +104,10 @@ public class UserService {
 
     public Long login(LoginRequestDto dto) {
 
-        Optional<User> user = userRepository.findByEmail(dto.getEmail());
+        Optional<UserEntity> user = userRepository.findByEmail(dto.getEmail());
 
         if (user.isEmpty()){
-            throw new RuntimeException("User not found exception");
+            throw new RuntimeException("UserEntity not found exception");
         }
         if (user.get().getState().equals(State.PENDING)){
             throw new RuntimeException("E-Mail not verified exception");
@@ -125,12 +127,43 @@ public class UserService {
 
     public List<Product> findAllPurchasedProducts(Long userid) {
 
-        Optional<User> user = userRepository.findById(userid);
+        Optional<UserEntity> user = userRepository.findById(userid);
 
         if (user.isEmpty()){
-            throw new RuntimeException("User not found exception");
+            throw new RuntimeException("UserEntity not found exception");
         }
 
         return user.get().getProducts();
+    }
+
+    public Optional<UserEntity> findById(Long userid) {
+        return userRepository.findById(userid);
+    }
+
+    public String loginWithSecurity(LoginRequestDto dto) {
+        Optional<UserEntity> user = userRepository.findByEmail(dto.getEmail());
+
+        if (user.isEmpty()){
+            throw new RuntimeException("UserEntity not found exception");
+        }
+        if (user.get().getState().equals(State.PENDING)){
+            throw new RuntimeException("E-Mail not verified exception");
+        }
+
+        if (user.get().getPassword().equals(dto.getPassword()) && user.get().getEmail().equals(dto.getEmail())){
+            Basket basket = new Basket();
+            basket.setUser(user.get());
+            basketRepository.save(basket);
+            user.get().setBasket(basket);
+            userRepository.save(user.get());
+            Optional<String> token = jwtTokenManager.createToken(user.get().getId());
+            if (token.isEmpty()){
+                throw new RuntimeException("JWT Token Create Exception");
+            }
+            return token.get();
+        }else {
+            throw new RuntimeException("Invalid credentials exception");
+        }
+
     }
 }
