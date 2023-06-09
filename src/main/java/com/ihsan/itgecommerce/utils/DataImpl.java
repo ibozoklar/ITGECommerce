@@ -46,6 +46,14 @@ public class DataImpl {
                 .lastName("Bozoklar")
                 .build();
         userService.save(admin1);
+
+        User user1 = User.builder().state(State.ACTIVE)
+                .email("user1@hotmail.com")
+                .password("1234")
+                .firstName("User")
+                .lastName("User")
+                .build();
+        userService.save(user1);
     }
 
     private void createProducts(){
@@ -54,11 +62,17 @@ public class DataImpl {
         Product product3 = Product.builder().title("ON FREN BALATASI").brand("BOSCH").price(755.34).productState(ProductState.AVAILABLE).build();
         Product product4 = Product.builder().title("ATESLEME BUJISI").brand("EYQUEM").price(197.55).productState(ProductState.AVAILABLE).build();
         Product product5 = Product.builder().title("HAVA FILTRE HORTUMU").brand("IBRAS").price(304.52).productState(ProductState.AVAILABLE).build();
+        Product product6 = Product.builder().title("DEBRIYAJ SETI").brand("LUK").price(16338.91).productState(ProductState.AVAILABLE).build();
+        Product product7 = Product.builder().title("FREN DISKI E30").brand("HELLA").price(675.91).productState(ProductState.AVAILABLE).build();
+        Product product8 = Product.builder().title("KALIPER TUTUCU").brand("TRW").price(760.10).productState(ProductState.AVAILABLE).build();
         productService.saveProduct(product1);
         productService.saveProduct(product2);
         productService.saveProduct(product3);
         productService.saveProduct(product4);
         productService.saveProduct(product5);
+        productService.saveProduct(product6);
+        productService.saveProduct(product7);
+        productService.saveProduct(product8);
     }
 
 
