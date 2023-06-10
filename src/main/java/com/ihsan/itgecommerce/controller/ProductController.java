@@ -3,6 +3,7 @@ package com.ihsan.itgecommerce.controller;
 
 
 
+import com.ihsan.itgecommerce.dto.request.CreateNewProductRequestDto;
 import com.ihsan.itgecommerce.entity.Product;
 import com.ihsan.itgecommerce.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +28,7 @@ public class ProductController {
 
     @PostMapping("/createNewProduct")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<Boolean> createNewProduct(@RequestBody Product product){
-        return ResponseEntity.ok(productService.saveProduct(product));
+    public ResponseEntity<Boolean> createNewProduct(@RequestBody CreateNewProductRequestDto dto){
+        return ResponseEntity.ok(productService.saveProduct(dto));
     }
 }

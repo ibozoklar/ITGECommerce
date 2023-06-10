@@ -21,7 +21,6 @@ public class DataImpl {
 
     private final RoleService roleService;
     private final ProductService productService;
-
     private final UserService userService;
 
     @PostConstruct
@@ -31,33 +30,40 @@ public class DataImpl {
     }
 
     private void createRoles() {
-
+        // Create roles
         Role admin = Role.builder().role("ADMIN").build();
         Role user = Role.builder().role("USER").build();
         roleService.saveRole(admin);
         roleService.saveRole(user);
 
-        Set<Role> adminlist = new HashSet<>();
-        adminlist.add(admin);
-        UserEntity admin1 = UserEntity.builder()
+        // Retrieve the roles by their IDs
+        Role adminRole = roleService.findByid(admin.getId());
+        Role userRole = roleService.findByid(user.getId());
+
+        // Create admin user with roles
+        Set<Role> adminRoles = new HashSet<>();
+        adminRoles.add(adminRole);
+        UserEntity adminUser = UserEntity.builder()
                 .state(State.ACTIVE)
-                .email("ihsancanbozoklar@hotmail.com")
-                .password("1234")
-                .firstName("Ihsan Can")
-                .lastName("Bozoklar")
+                .email("admin@example.com")
+                .password("admin123")
+                .firstName("Admin")
+                .lastName("User")
+                //.roles(adminRoles)
                 .build();
+        userService.save(adminUser);
 
-        //admin1.getRoles().add(roleService.findByid(1L));
-        userService.save(admin1);
-
-        UserEntity user1 = UserEntity.builder().state(State.ACTIVE)
-                .email("user1@hotmail.com")
-                .password("1234")
-                .firstName("UserEntity")
-                .lastName("UserEntity")
+        // Create regular user without roles
+        UserEntity regularUser = UserEntity.builder()
+                .state(State.ACTIVE)
+                .email("user@example.com")
+                .password("user123")
+                .firstName("Regular")
+                .lastName("User")
                 .build();
-        userService.save(user1);
+        userService.save(regularUser);
     }
+
 
     private void createProducts(){
         Product product1 = Product.builder().title("TAVAN LAMBASI BEYAZ DOKUNMATIK").brand("SANEL").price(288.26).productState(ProductState.AVAILABLE).build();
