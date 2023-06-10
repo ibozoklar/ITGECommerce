@@ -1,6 +1,7 @@
 package com.ihsan.itgecommerce.service;
 
 
+import com.ihsan.itgecommerce.dto.request.CreateAdminRequestDto;
 import com.ihsan.itgecommerce.dto.request.LoginRequestDto;
 import com.ihsan.itgecommerce.dto.request.RegisterRequestDto;
 import com.ihsan.itgecommerce.dto.request.VerifyEmailRequestDto;
@@ -164,6 +165,25 @@ public class UserService {
         }else {
             throw new RuntimeException("Invalid credentials exception");
         }
+
+    }
+
+    public Boolean createAdmin(CreateAdminRequestDto dto) {
+
+        UserEntity user = IUserMapper.INSTANCE.toUser(dto);
+
+        user.setState(State.ACTIVE);
+
+        Set<Role> roles = new HashSet<>();
+        Role roleUser = roleRepository.findById(Long.valueOf(1)).get();
+
+        roles.add(roleUser);
+
+        user.setRoles(roles);
+        userRepository.save(user);
+
+        return true;
+
 
     }
 }

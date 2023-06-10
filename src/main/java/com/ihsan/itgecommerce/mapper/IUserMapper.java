@@ -1,5 +1,6 @@
 package com.ihsan.itgecommerce.mapper;
 
+import com.ihsan.itgecommerce.dto.request.CreateAdminRequestDto;
 import com.ihsan.itgecommerce.dto.request.RegisterRequestDto;
 import com.ihsan.itgecommerce.entity.UserEntity;
 import org.mapstruct.Mapper;
@@ -12,6 +13,7 @@ public interface IUserMapper {
     IUserMapper INSTANCE = Mappers.getMapper(IUserMapper.class);
 
     UserEntity toUser(final RegisterRequestDto dto);
+    UserEntity toUser(final CreateAdminRequestDto dto);
 
 
 }

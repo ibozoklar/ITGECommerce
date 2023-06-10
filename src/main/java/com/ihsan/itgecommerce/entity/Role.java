@@ -23,7 +23,8 @@ public class Role {
 
     @Column(unique = true, nullable = false)
     private String role;
+
     @JsonBackReference
-    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "roles")
     private List<UserEntity> users;
 }

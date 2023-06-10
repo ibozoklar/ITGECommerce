@@ -27,7 +27,10 @@ public class DataImpl {
     public void loadData() {
         createRoles();
         createProducts();
+        createUsers();
     }
+
+
 
     private void createRoles() {
         // Create roles
@@ -35,34 +38,8 @@ public class DataImpl {
         Role user = Role.builder().role("USER").build();
         roleService.saveRole(admin);
         roleService.saveRole(user);
-
-        // Retrieve the roles by their IDs
-        Role adminRole = roleService.findByid(admin.getId());
-        Role userRole = roleService.findByid(user.getId());
-
-        // Create admin user with roles
-        Set<Role> adminRoles = new HashSet<>();
-        adminRoles.add(adminRole);
-        UserEntity adminUser = UserEntity.builder()
-                .state(State.ACTIVE)
-                .email("admin@example.com")
-                .password("admin123")
-                .firstName("Admin")
-                .lastName("User")
-                //.roles(adminRoles)
-                .build();
-        userService.save(adminUser);
-
-        // Create regular user without roles
-        UserEntity regularUser = UserEntity.builder()
-                .state(State.ACTIVE)
-                .email("user@example.com")
-                .password("user123")
-                .firstName("Regular")
-                .lastName("User")
-                .build();
-        userService.save(regularUser);
     }
+
 
 
     private void createProducts(){
@@ -84,6 +61,34 @@ public class DataImpl {
         productService.saveProduct(product8);
     }
 
+    public void createUsers(){
+        // Retrieve the roles by their IDs
+        Role adminRole = roleService.findByid(Long.valueOf(1));
+        Role userRole = roleService.findByid(2L);
 
+        // Create admin user with roles
+        Set<Role> adminRoles = new HashSet<>();
+        adminRoles.add(adminRole);
+        UserEntity adminUser = UserEntity.builder()
+                .state(State.ACTIVE)
+                .email("admin@example.com")
+                .password("admin123")
+                .firstName("Admin")
+                .lastName("User")
+                .build();
+        adminUser.setRoles(adminRoles);
+        userService.save(adminUser);
+
+        // Create regular user without roles
+        UserEntity regularUser = UserEntity.builder()
+                .state(State.ACTIVE)
+                .email("user@example.com")
+                .password("user123")
+                .firstName("Regular")
+                .lastName("User")
+                .build();
+        userService.save(regularUser);
+
+    }
 
 }
