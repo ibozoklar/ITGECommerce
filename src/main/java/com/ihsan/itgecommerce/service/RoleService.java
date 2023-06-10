@@ -6,6 +6,8 @@ import com.ihsan.itgecommerce.repository.IRoleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class RoleService {
@@ -18,6 +20,11 @@ public class RoleService {
     }
 
     public Role findByid(Long id){
-        return roleRepository.findById(id).get();
+        Optional<Role> role =  roleRepository.findById(id);
+
+        if (role.isEmpty()){
+            throw new RuntimeException("Role not found exception");
+        }
+        return role.get();
     }
 }
