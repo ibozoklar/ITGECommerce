@@ -58,5 +58,7 @@ public class UserEntity {
     private Basket basket;
 
 
+    @Column(name = "failed_login_attempts")
+    private int failedLoginAttempts;
 
 }

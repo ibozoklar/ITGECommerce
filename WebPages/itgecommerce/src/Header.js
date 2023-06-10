@@ -7,6 +7,8 @@ import changeRole from './assets/styles/headerIcons/changerole.png';
 import logout from './assets/styles/headerIcons/logout.png';
 import BasketPage from './BasketPage';
 import MyProducts from './myProducts';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 
 
 
@@ -94,8 +96,12 @@ export default function Header() {
           />
         </div>
         <div className="basket" onClick={toggleBasket}>
-          Basket
-          <i className="fa-solid fa-cart-shopping fa-2xl"></i>
+          <FontAwesomeIcon
+            icon={faCartShopping}
+            className="basket-icon"
+            size='2x'
+          /> {/* Basket icon */}
+          
         </div>
       </header>
 
