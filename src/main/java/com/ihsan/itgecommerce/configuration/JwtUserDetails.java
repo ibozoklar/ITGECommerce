@@ -15,34 +15,30 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class JwtUserDetails implements UserDetailsService {
     @Autowired
     UserService userService;
 
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return null;
     }
 
+    public UserDetails getUserById(Long userId) {
+        UserEntity userEntity = userService.findById(userId)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with ID: " + userId));
 
-    public UserDetails getUserById(Long userid) {
-
-
-        Optional<UserEntity> personal = userService.findById(userid);
-        if (personal.isEmpty()) return null;
-
-        List<GrantedAuthority> authorities = new ArrayList<>();
-        for (int i=0; i<personal.get().getRoles().size(); i++){
-            authorities.add(new SimpleGrantedAuthority(personal.get().getRoles().stream().toList().get(i).toString()));
-        }
-        //authorities.add(new SimpleGrantedAuthority(personal.get().getUserType().toString()));
+        List<GrantedAuthority> authorities = userEntity.getRoles().stream()
+                .map(role -> new SimpleGrantedAuthority(role.getRole()))
+                .collect(Collectors.toList());
+        System.out.println(authorities);
 
         return User.builder()
-                .username(userid.toString())
-                .password("")
+                .username(userEntity.getFirstName())
+                .password(userEntity.getPassword())
                 .accountLocked(false)
                 .accountExpired(false)
                 .authorities(authorities)

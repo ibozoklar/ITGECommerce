@@ -26,8 +26,8 @@ public class ProductController {
         return ResponseEntity.ok(productService.findAllProducts());
     }
 
-    @PostMapping("/createNewProduct")
     @PreAuthorize("hasAuthority('ADMIN')")
+    @PostMapping("/createNewProduct")
     public ResponseEntity<Boolean> createNewProduct(@RequestBody CreateNewProductRequestDto dto){
         return ResponseEntity.ok(productService.saveProduct(dto));
     }

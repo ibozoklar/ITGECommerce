@@ -64,11 +64,16 @@ public class DataImpl {
     public void createUsers(){
         // Retrieve the roles by their IDs
         Role adminRole = roleService.findByid(Long.valueOf(1));
-        Role userRole = roleService.findByid(2L);
+        Role userRole = roleService.findByid(Long.valueOf(2));
 
         // Create admin user with roles
         Set<Role> adminRoles = new HashSet<>();
         adminRoles.add(adminRole);
+
+        Set<Role> userRoles = new HashSet<>();
+        userRoles.add(userRole);
+
+
         UserEntity adminUser = UserEntity.builder()
                 .state(State.ACTIVE)
                 .email("admin@example.com")
@@ -79,7 +84,7 @@ public class DataImpl {
         adminUser.setRoles(adminRoles);
         userService.save(adminUser);
 
-        // Create regular user without roles
+
         UserEntity regularUser = UserEntity.builder()
                 .state(State.ACTIVE)
                 .email("user@example.com")
@@ -87,6 +92,7 @@ public class DataImpl {
                 .firstName("Regular")
                 .lastName("User")
                 .build();
+        regularUser.setRoles(userRoles);
         userService.save(regularUser);
 
     }
