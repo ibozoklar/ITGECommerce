@@ -47,7 +47,7 @@ public class UserEntity {
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id")
+            inverseJoinColumns = @JoinColumn(name = "roles_id") // Corrected column name
     )
     private Set<Role> roles;
 
