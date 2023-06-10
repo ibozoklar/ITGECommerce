@@ -23,7 +23,7 @@ public class SecurityConfig{
 
         httpSecurity.authorizeRequests().antMatchers(
                 "/v3/api-docs/**","/swagger-ui/**",
-                "/product/findAllProducts","/basket/**","/auth/**","user/**"
+                "/product/findAllProducts","/basket/**","/auth/**", "/user/**"
         ).permitAll().anyRequest().authenticated();
 
         httpSecurity.addFilterBefore( getJwtTokenFilter() , UsernamePasswordAuthenticationFilter.class);

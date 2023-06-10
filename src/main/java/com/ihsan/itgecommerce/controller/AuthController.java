@@ -2,6 +2,7 @@ package com.ihsan.itgecommerce.controller;
 
 
 
+import com.ihsan.itgecommerce.dto.request.CreateAdminRequestDto;
 import com.ihsan.itgecommerce.dto.request.LoginRequestDto;
 import com.ihsan.itgecommerce.dto.request.RegisterRequestDto;
 import com.ihsan.itgecommerce.dto.request.VerifyEmailRequestDto;
@@ -27,6 +28,12 @@ public class AuthController {
     public ResponseEntity<Boolean> register(@RequestBody RegisterRequestDto dto){
 
         return ResponseEntity.ok(userService.register(dto));
+    }
+
+    @PostMapping("/createAdmin")
+    public ResponseEntity<Boolean> createAdmin(@RequestBody CreateAdminRequestDto dto){
+        return ResponseEntity.ok(userService.createAdmin(dto));
+
     }
 
     @PostMapping ("/verifyEmail")

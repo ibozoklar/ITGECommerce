@@ -1,13 +1,11 @@
 package com.ihsan.itgecommerce.controller;
 
+import com.ihsan.itgecommerce.dto.request.CreateAdminRequestDto;
 import com.ihsan.itgecommerce.entity.Product;
 import com.ihsan.itgecommerce.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,4 +20,6 @@ public class UserController {
     public ResponseEntity<List<Product>> findAllPurchasedProducts(@PathVariable Long userid){
         return ResponseEntity.ok(userService.findAllPurchasedProducts(userid));
     }
+
+
 }
