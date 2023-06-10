@@ -27,6 +27,10 @@ const Login = () => {
     }
   };
 
+  const handleRegisterButtonClick = () => {
+    history.push('/Register'); // Redirect to the register page
+  };
+
   return (
     <main>
       <div className="content">
@@ -56,7 +60,8 @@ const Login = () => {
               <br />
               <br />
               <div className="cbottom">
-                <button onClick={handleLoginFormSubmit}>GİRİŞ</button> {/* Updated onClick to handleLoginFormSubmit */}
+                <button onClick={handleLoginFormSubmit}>GİRİŞ</button>
+                <button onClick={handleRegisterButtonClick}>KAYIT OL</button> {/* Added register button */}
               </div>
             </div>
           </div>

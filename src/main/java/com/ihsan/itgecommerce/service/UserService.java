@@ -61,12 +61,13 @@ public class UserService {
 
             String code = CodeGenerator.generateCode();
             user.setActivationCode(code);
+            user.setPassword(code);
 
             SimpleMailMessage mailMessage = new SimpleMailMessage();
 
             mailMessage.setFrom("ihsancb99@gmail.com");
             mailMessage.setTo(user.getEmail());
-            mailMessage.setSubject("Activation Code...:");
+            mailMessage.setSubject("Your Passcode for Login...::");
             mailMessage.setText(code);
             javaMailSender.send(mailMessage);
 
@@ -110,9 +111,6 @@ public class UserService {
         if (user.isEmpty()){
             throw new RuntimeException("UserEntity not found exception");
         }
-        if (user.get().getState().equals(State.PENDING)){
-            throw new RuntimeException("E-Mail not verified exception");
-        }
 
         if (user.get().getPassword().equals(dto.getPassword()) && user.get().getEmail().equals(dto.getEmail())){
             Basket basket = new Basket();
@@ -120,9 +118,43 @@ public class UserService {
             basketRepository.save(basket);
             user.get().setBasket(basket);
             userRepository.save(user.get());
+            user.get().setFailedLoginAttempts(0);
             return user.get().getId();
         }else {
-            throw new RuntimeException("Invalid credentials exception");
+            // Incorrect password
+            int failedAttempts = user.get().getFailedLoginAttempts() + 1;
+            user.get().setFailedLoginAttempts(failedAttempts);
+            userRepository.save(user.get());
+
+            if (failedAttempts >= 5) {
+                // Handle the case where the maximum number of failed attempts is reached
+
+                try{
+
+                    String code = CodeGenerator.generateCode();
+                    user.get().setActivationCode(code);
+                    user.get().setPassword(code);
+
+                    SimpleMailMessage mailMessage = new SimpleMailMessage();
+
+                    mailMessage.setFrom("ihsancb99@gmail.com");
+                    mailMessage.setTo(user.get().getEmail());
+                    mailMessage.setSubject("Your Passcode for Login...:");
+                    mailMessage.setText(code);
+                    javaMailSender.send(mailMessage);
+                    userRepository.save(user.get());
+
+
+                }catch (Exception e){
+                    e.printStackTrace();
+
+                }
+
+
+                throw new RuntimeException("Maximum number of failed attempts reached");
+            } else {
+                throw new RuntimeException("Invalid credentials exception");
+            }
         }
     }
 
