@@ -7,7 +7,10 @@ import com.ihsan.itgecommerce.entity.enums.ProductState;
 import com.ihsan.itgecommerce.repository.IBasketRepository;
 import com.ihsan.itgecommerce.repository.IProductRepository;
 import com.ihsan.itgecommerce.repository.IUserRepository;
+import com.ihsan.itgecommerce.utils.CodeGenerator;
 import lombok.RequiredArgsConstructor;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -20,8 +23,8 @@ public class BasketService {
 
     private final IBasketRepository basketRepository;
     private final IUserRepository userRepository;
-
     private final IProductRepository productRepository;
+    private final JavaMailSender javaMailSender;
 
     public boolean createBasket(Long userid){
         Basket basket = new Basket();
@@ -78,13 +81,36 @@ public class BasketService {
 
         Optional<Basket> basket = basketRepository.findById(basketid);
 
+        String text = "";
         for (int i=0; i<basket.get().getProducts().size(); i++){
 
             basket.get().getProducts().get(i).setUser(basket.get().getUser());
             basket.get().getProducts().get(i).setProductState(ProductState.SOLD);
             basket.get().getUser().getProducts().add(basket.get().getProducts().get(i));
+            text += basket.get().getProducts().get(i).getTitle()+" --- ";
 
         }
+
+        UserEntity user = basket.get().getUser();
+
+
+
+            try{
+
+                SimpleMailMessage mailMessage = new SimpleMailMessage();
+
+                mailMessage.setFrom("ihsancb99@gmail.com");
+                mailMessage.setTo(user.getEmail());
+                mailMessage.setSubject("Sipariş ettiğiniz ürünler...:");
+                mailMessage.setText(text);
+                javaMailSender.send(mailMessage);
+
+
+            }catch (Exception e){
+                e.printStackTrace();
+
+            }
+
 
         basket.get().setProducts(new ArrayList<>());
         basketRepository.save(basket.get());

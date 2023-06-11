@@ -9,16 +9,16 @@ import BasketPage from './BasketPage';
 import MyProducts from './myProducts';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
-
-
+import { useTranslation } from 'react-i18next';
+import LanguageSwitcher from './LanguageSwitcher';
+import Profile from './Profile';
 
 export default function Header() {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [isBasketOpen, setIsBasketOpen] = useState(false);
   const [isMyProductsOpen, setIsMyProductsOpen] = useState(false);
-
-  const [userData, setUserData] = useState({});
-
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const { t } = useTranslation();
   const history = useHistory();
 
   const toggleBasket = () => {
@@ -27,6 +27,10 @@ export default function Header() {
 
   const toggleMyProducts = () => {
     setIsMyProductsOpen(!isMyProductsOpen);
+  };
+
+  const toggleProfile = () => {
+    setIsProfileOpen(!isProfileOpen);
   };
 
   const handleUserMenuClick = () => {
@@ -61,21 +65,17 @@ export default function Header() {
         <div>
           {isUserMenuOpen && (
             <div className="usermenu">
-              <button className="menu-btn" onClick={handleUserInfoClick}>
+              <button className="menu-btn" onClick={toggleProfile}>
                 <img src={userInfo} alt="User Icon" className="user-icon" />
-                Profile
+                {t('usermenu.profile')}
               </button>
               <button className="menu-btn" onClick={toggleMyProducts}>
-                <img
-                  src={changeRole}
-                  alt="change Role"
-                  className="exchange-icon"
-                />
-                My Products
+                <img src={changeRole} alt="change Role" className="exchange-icon" />
+                {t('usermenu.myproducts')}
               </button>
               <button className="menu-btn" onClick={handleLogoutClick}>
                 <img src={logout} alt="logout Icon" className="logout-icon" />
-                Logout
+                {t('usermenu.logout')}
               </button>
             </div>
           )}
@@ -85,7 +85,7 @@ export default function Header() {
           <LogoMain />
         </div>
         <div className="div-mainheading">
-          <h1>Otomotiv Parça E-Ticaret</h1>
+          <h1>{t('header.title')}</h1>
         </div>
 
         <div className="userlogin">
@@ -99,17 +99,18 @@ export default function Header() {
           <FontAwesomeIcon
             icon={faCartShopping}
             className="basket-icon"
-            size='2x'
-          /> {/* Basket icon */}
-          
+            size="2x"
+          />
         </div>
       </header>
 
+      <div className="language-switcher">
+        <LanguageSwitcher />
+      </div>
+
+      {isProfileOpen && <Profile />}
       {isBasketOpen && <BasketPage />}
       {isMyProductsOpen && <MyProducts />}
-      
-
-
     </div>
   );
 }

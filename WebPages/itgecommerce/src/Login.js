@@ -2,12 +2,15 @@ import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { AuthContext } from './AuthContext';
 import axios from 'axios';
+import { useTranslation } from 'react-i18next'; // Import the useTranslation hook
+import LanguageSwitcher from './LanguageSwitcher';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const history = useHistory();
   const { handleLogin } = useContext(AuthContext);
+  const { t } = useTranslation(); // Access the translation function
 
   const handleLoginFormSubmit = async (e) => {
     e.preventDefault();
@@ -33,35 +36,38 @@ const Login = () => {
 
   return (
     <main>
+      <div className="language-switcher">
+        <LanguageSwitcher />
+      </div>
       <div className="content">
         <div className="loginContent">
           <div className="ctop">
             <div className="user-menu">
-              <span className="username">Kullanıcı Adı:</span> <br />
+              <span className="username">{t('login.username')}:</span> <br /> {/* Translate the text */}
               <input
                 className="placeholder-input"
                 type="email"
                 id="email"
-                placeholder="Kullanıcı adınızı giriniz."
+                placeholder={t('login.emailPlaceholder')} // Translate the text
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
               <br />
               <br />
-              <span className="password">Şifre:</span> <br />
+              <span className="password">{t('login.password')}:</span> <br /> {/* Translate the text */}
               <input
                 className="placeholder-input"
                 type="password"
                 id="password"
-                placeholder="Şifrenizi giriniz."
+                placeholder={t('login.passwordPlaceholder')} // Translate the text
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
               <br />
               <br />
               <div className="cbottom">
-                <button onClick={handleLoginFormSubmit}>GİRİŞ</button>
-                <button onClick={handleRegisterButtonClick}>KAYIT OL</button> {/* Added register button */}
+                <button onClick={handleLoginFormSubmit}>{t('login.loginButton')}</button> {/* Translate the text */}
+                <button onClick={handleRegisterButtonClick}>{t('login.registerButton')}</button> {/* Translate the text */}
               </div>
             </div>
           </div>
