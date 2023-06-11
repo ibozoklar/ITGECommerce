@@ -4,11 +4,14 @@ import { AuthContext } from './AuthContext';
 import Header from './Header';
 import axios from "axios";
 import './Home.css'; // Import the CSS file for Home component styling
+import { useTranslation } from 'react-i18next'; // Import the useTranslation hook
+
 
 const Home = () => {
   const { userid } = useContext(AuthContext);
   const [products, setProducts] = useState([]);
   const [basketItemCount, setBasketItemCount] = useState(0);
+  const { t } = useTranslation();
 
   useEffect(() => {
     axios
@@ -37,7 +40,7 @@ const Home = () => {
         console.log("Item added to basket successfully.");
 
         // Update basket item count
-        setBasketItemCount((prevCount) => prevCount + 1);
+        
       })
       .catch((error) => {
         // Handle error
@@ -47,7 +50,7 @@ const Home = () => {
 
   return (
     <div>
-      <Header basketItemCount={basketItemCount} />
+      <Header />
       <div className="home">
         {products.map((product) => (
           <div className="card" key={product.id}>
@@ -56,7 +59,7 @@ const Home = () => {
               <p className="card-brand">{product.brand}</p>
               <p className="card-price">{product.price} TL</p>
               <button className="add-to-basket-btn" onClick={() => addToBasket(product.id)}>
-                Add to Basket
+              {t('home.addToBasket')}
               </button>
             </div>
           </div>

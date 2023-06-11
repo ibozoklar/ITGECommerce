@@ -1,0 +1,31 @@
+{
+    "header.title": "Automotive Part E-Commerce",
+    "usermenu.profile":"Profile",
+    "usermenu.myproducts":"My Products",
+    "usermenu.logout":"Logout",
+    "basket.add": "Add to Basket",
+    "basket.remove": "Remove from Basket",
+    "basket.purchase": "Purchase",
+    "myproducts": "My Products",
+    "login.emailPlaceholder": "input your e-mail address",
+    "login.username": "e-mail",
+    "login.password": "Password",
+    "login.passwordPlaceholder": "input your password",
+    "login.loginButton": "Log in",
+    "login.registerButton": "Register",
+    "register.title": "Register",
+    "register.emailLabel": "E-Mail",
+    "register.firstNameLabel": "Name",
+    "register.lastNameLabel": "Surname",
+    "register.registerButton": "Register",
+    "register.loginLink": "Already have an account?",
+    "home.addToBasket":"Add to Basket",
+    "usermenu.myproducts": "My Products",
+    "usermenu.profile": "Profile",
+    "profile.currentpassword":"Current Password",
+    "profile.newpassword":"New Password",
+    "profile.confirmpassword":"Confirm Password",
+    "profile.update":"UPDATE"
+
+  }
+  

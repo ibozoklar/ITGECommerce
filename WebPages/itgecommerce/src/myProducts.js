@@ -1,11 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "./AuthContext";
+import { useTranslation } from 'react-i18next';
 
 export default function MyProducts(){
 
     const [products, setProducts] = useState([]);
     const { userid } = useContext(AuthContext);
+    const { t } = useTranslation();
 
     useEffect(() => {
         fetchProducts();
@@ -26,10 +28,11 @@ export default function MyProducts(){
     return(
 
       <div className="myProductsContent">
+        <h3>{t('usermenu.myproducts')}</h3>
       
         {products.map((product) => (
           <div className="card" key={product.id}>
-            {product.title} <br /> {product.brand} <br /> {product.price} TL
+            <strong>{product.title}</strong><br /> {product.brand} <br /> <br /> <strong>{product.price} TL</strong>
           </div>
         ))}
       

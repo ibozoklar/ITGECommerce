@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres
+    restart: always
+    ports:
+      - 9999:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: ITGECommerceDb
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data

@@ -10,7 +10,7 @@ spring:
       password: 1234
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/ITGECommerceDb
+    url: jdbc:postgresql://localhost:9999/ITGECommerceDb
     username: postgres
     password: root
 

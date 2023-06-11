@@ -1,20 +1,41 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
+import { I18nextProvider, initReactI18next } from 'react-i18next';
+import i18n from 'i18next';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>
+import enTranslation from './locales/en.json';
+import trTranslation from './locales/tr.json';
+
+// Configure i18next
+i18n.use(initReactI18next).init({
+  resources: {
+    en: {
+      translation: enTranslation,
+    },
+    tr: {
+      translation: trTranslation,
+    },
+  },
+  lng: 'en', // Set the initial language
+  fallbackLng: 'en', // Fallback language if translation is missing for the current language
+  interpolation: {
+    escapeValue: false,
+  },
+});
+
+ReactDOM.render(
+  <React.StrictMode>
+    <BrowserRouter>
+      <I18nextProvider i18n={i18n}>
+        <App />
+      </I18nextProvider>
+    </BrowserRouter>
+  </React.StrictMode>,
+  document.getElementById('root')
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
-
-

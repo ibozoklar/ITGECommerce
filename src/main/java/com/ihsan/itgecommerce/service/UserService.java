@@ -1,10 +1,7 @@
 package com.ihsan.itgecommerce.service;
 
 
-import com.ihsan.itgecommerce.dto.request.CreateAdminRequestDto;
-import com.ihsan.itgecommerce.dto.request.LoginRequestDto;
-import com.ihsan.itgecommerce.dto.request.RegisterRequestDto;
-import com.ihsan.itgecommerce.dto.request.VerifyEmailRequestDto;
+import com.ihsan.itgecommerce.dto.request.*;
 import com.ihsan.itgecommerce.entity.Basket;
 import com.ihsan.itgecommerce.entity.Product;
 import com.ihsan.itgecommerce.entity.Role;
@@ -179,9 +176,6 @@ public class UserService {
         if (user.isEmpty()){
             throw new RuntimeException("UserEntity not found exception");
         }
-        if (user.get().getState().equals(State.PENDING)){
-            throw new RuntimeException("E-Mail not verified exception");
-        }
 
         if (user.get().getPassword().equals(dto.getPassword()) && user.get().getEmail().equals(dto.getEmail())){
             Basket basket = new Basket();
@@ -217,5 +211,29 @@ public class UserService {
         return true;
 
 
+    }
+
+    public Boolean updatePassword(UpdatePasswordRequestDto dto) {
+        Optional<UserEntity> user = userRepository.findById(dto.getUserid());
+        if (user.isEmpty()){
+            throw new RuntimeException("UserEntity not found exception");
+        }
+        if (dto.getCurrentPassword().equals(dto.getNewPassword())){
+            throw new RuntimeException("New Password can not be the same with your current password");
+        }
+
+        user.get().setPassword(dto.getNewPassword());
+        userRepository.save(user.get());
+        return true;
+    }
+
+    public String getRole(Long userid) {
+
+        Optional<UserEntity> user = userRepository.findById(userid);
+        if (user.isEmpty()){
+            throw new RuntimeException("UserEntity not found exception");
+        }
+
+        return user.get().getRoles().stream().findFirst().get().getRole();
     }
 }
