@@ -9,6 +9,7 @@
 
 To run the react application
 
+ITGEcommerce\WebPages\itgecommerce> npm install
 ITGEcommerce\WebPages\itgecommerce> npm start
 
 # Email
